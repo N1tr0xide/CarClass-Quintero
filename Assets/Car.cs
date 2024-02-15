@@ -12,25 +12,43 @@ public class Car
     public int Year 
     { 
         get { return year; }
-        set { year = value; }
+        set 
+        {
+            if (value < 1886)
+            {
+                Debug.LogWarning($"{value} is an invalid year, year must be at least 1886");
+                return;
+            }
+            year = value; 
+        }
     }
 
     public string Make
     {
         get { return make; }
-        set { make = value; }
+        set 
+        {
+            if(value == null || value == "")
+            {
+                Debug.LogWarning($"Invalid assingment. String is null or empty");
+                return;
+            }
+            make = value; 
+        }
     }
 
-    public void Accelerate(int bySpeed)
+    public int Accelerate(int bySpeed)
     {
         int newSpeed = currentSpeed + bySpeed;
         currentSpeed = newSpeed >= maxSpeed ? maxSpeed : newSpeed; 
+        return currentSpeed;
     }
 
-    public void Deaccelerate(int bySpeed)
+    public int Deaccelerate(int bySpeed)
     {
         int newSpeed = currentSpeed - bySpeed;
         currentSpeed = newSpeed <= 0 ? 0 : newSpeed;
+        return currentSpeed;
     }
 
     public void PrintAllInfo()
